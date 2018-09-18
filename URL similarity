@@ -1,0 +1,22 @@
+from urlparse import urlparse
+def urlSimilarity(url1, url2):
+    c=0
+    test = urlparse(url1, allow_fragments=True)
+    test1 = urlparse(url2, allow_fragments=True)
+    
+    c+= (test.netloc == test1.netloc)*10 + (test.scheme == test1.scheme)*5
+    l = test.path.split('/')[1:]
+    l1 = test1.path.split('/')[1:]
+    for i,j in zip(l,l1):
+        if i==j:
+            c+=1
+        else:
+            break      
+    q = test.query.split('&')
+    q1 = test1.query
+    for i in q:
+        if i.split('=')[0]+'=' in q1 and i!='':
+            c+=1
+        if i in q1 and i!='':
+            c+=1
+    return c
