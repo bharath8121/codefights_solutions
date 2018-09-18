@@ -1,0 +1,31 @@
+import datetime
+def maliciousProgram(curDate, changes):
+    convertion_a_n = {'Jan' : 1,'Feb' : 2,'Mar' : 3,'Apr' : 4,'May' : 5,'Jun' : 6,'Jul' : 7,'Aug' : 8,'Sep' : 9,'Oct' : 10,'Nov' : 11,'Dec' : 12}
+    t = curDate.split(" ")
+    t[1] = convertion_a_n[t[1]]
+    t = t[:3]+t[3].split(':')
+    for i in range(len(t)):
+        t[i] =int(t[i])+changes[i]
+    try:
+        newDate = datetime.datetime(t[2],t[1],t[0])
+        print"crossed date"
+        if t[3]<=23 and t[4]<60 and t[5]<60:
+            t = map(lambda x: (2-len(str(x)))*"0"+str(x), t)
+            print "1"
+            for a,n in convertion_a_n.iteritems():
+                print a,n
+                if int(t[1]) == n:
+                    t[1] = a
+                    break
+            print t[1]
+            print "2"
+            t = [t[0], t[1], t[2]] + [':'.join([t[3],t[4],t[5]])]
+            print "3"
+            print "time done"
+        else:
+            raise ValueError()
+    except ValueError:
+        return curDate
+    
+    print t
+    return ' '.join(t)
